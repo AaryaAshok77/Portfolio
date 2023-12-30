@@ -1,1 +1,41 @@
-<h1>Hello World</h1>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Portfolio</title>
+
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="media.css">
+</head>
+<body>
+    <nav id="desk-nav">
+        <div class="logo">Aarya Ashok K</div>
+        <div>
+            <ul class="nav-links">
+                <li><a href="#about">About</a></li>
+                <li><a href="#exp">Experience</a></li>
+                <li><a href="#proj">Projects</a></li>
+                <li><a href="#cont">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+    <nav id="ham-nav">
+        <div class="logo">Aarya Ashok K</div>
+        <div class="ham-menu">
+            <div class="ham-icon" onclick="toggleMenu()">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <div class="ham-links">
+                <li><a href="#about" onclick="toggleMenu()">About</a></li>
+                <li><a href="#exp" onclick="toggleMenu()">Experience</a></li>
+                <li><a href="#proj" onclick="toggleMenu()">Projects</a></li>
+                <li><a href="#cont" onclick="toggleMenu()">Contact</a></li>
+            </div>
+        </div>
+    </nav>
+    <script src="script.js"></script>
+</body>
+</html>

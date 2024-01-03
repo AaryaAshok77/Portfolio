@@ -289,6 +289,9 @@ section {
     border: black 0.1rem solid;
     text-align: center;
 }
+.details-container span{
+    font-weight: 600;
+}
 
 .section-container {
     display: flex;
@@ -338,40 +341,40 @@ article .icon {
 
 
 /* Projects Section */
-#proj{
+#proj {
     position: relative;
 }
 
-.color-container{
+.color-container {
     border-color: #495E57;
     background-color: #F5F7F8;
 }
 
-.proj-img{
+.proj-img {
     border-radius: 2rem;
     height: 75%;
     width: 75%;
 }
 
-.proj-title{
+.proj-title {
     margin: 1rem;
     color: black;
 }
 
-.proj-btn{
+.proj-btn {
     color: black;
     border-color: #495E57;
 }
 
 /* Contact Section */
-#cont{
+#cont {
     display: flex;
     justify-content: center;
     flex-direction: column;
     height: 70vh;
 }
 
-.cont-info-up-container{
+.cont-info-up-container {
     display: flex;
     justify-content: center;
     border-radius: 2rem;
@@ -381,7 +384,7 @@ article .icon {
     padding: 0.5rem;
 }
 
-.cont-info-container{
+.cont-info-container {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -389,21 +392,21 @@ article .icon {
     margin: 1rem;
 }
 
-.cont-info-container p{
+.cont-info-container p {
     font-size: larger;
 }
 
-.cont-icon{
+.cont-icon {
     cursor: default;
     height: 2rem;
 }
 
 /* Footer */
-footer{
+footer {
     height: 25vh;
     margin: 0 1rem;
 }
 
-footer p{
+footer p {
     text-align: center;
 }

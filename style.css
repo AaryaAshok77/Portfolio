@@ -95,7 +95,6 @@ a:hover {
     position: absolute;
     top: 100%;
     right: 0;
-    background-color: #F5F7F8;
     width: fit-content;
     max-height: 0;
     overflow: hidden;
@@ -107,7 +106,6 @@ a:hover {
     padding: 10px;
     text-align: center;
     font-size: 1.5rem;
-    color: #F4CE14;
     text-decoration: none;
     transition: all 0.3s ease-in-out;
 }
@@ -165,8 +163,8 @@ section {
 
 .section_pic-container {
     display: flex;
-    height: 400px;
-    width: 400px;
+    height: 50vh;
+    width: 50vh;
     margin: auto 0;
 }
 

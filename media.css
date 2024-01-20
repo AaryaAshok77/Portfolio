@@ -47,8 +47,8 @@
     }
 
     .section_pic-container {
-        width: 275px;
-        height: 275px;
+        width: 45vh;
+        height: 45vh;
         margin: 0 auto 2rem;
     }
 
@@ -109,7 +109,7 @@
 
     .section_pic-container {
         width: auto;
-        height: 46vw;
+        height: 75vw;
         justify-content: center;
     }
 

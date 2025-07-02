@@ -5,30 +5,28 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>Aarya's Portfolio</title>
-    <link rel="icon" type="image/x-icon" href="images/logo_Me.png">
+    <link rel="icon" type="image/x-icon" href="./images/logo_Me.png">
 
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="media.css">
 </head>
 <body>
     <nav id="desk-nav">
-        <div class="logo" style="display: flex; align-items: center;">
-            <img src="images/logo_Me.png" alt="My logo" style="margin-right: 10px; height: 5vh;"> 
-            <span style="font-size: 2rem;">Aarya Ashok K</span>
+        <div class="logo">
+            <img src="./images/logo_Me.png" alt="My logo"> 
+            <span>Aarya Ashok K</span>
         </div>
-        <div>
-            <ul class="nav-links">
-                <li><a href="#about">About</a></li>
-                <li><a href="#exp">Experience</a></li>
-                <li><a href="#proj">Projects</a></li>
-                <li><a href="#cont">Contact</a></li>
-            </ul>
-        </div>
+        <ul class="nav-links">
+            <li><a href="#about">About</a></li>
+            <li><a href="#exp">Experience</a></li>
+            <li><a href="#proj">Projects</a></li>
+            <li><a href="#cont">Contact</a></li>
+        </ul>
     </nav>
     <nav id="ham-nav">
-        <div class="logo" style="display: flex; align-items: center;">
-            <img src="images/logo_Me.png" alt="My logo" style="margin-right: 10px; height: 5vh;"> 
-            <span style="font-size: 2rem;">Aarya Ashok K</span>
+        <div class="logo">
+            <img src="./images/logo_Me.png" alt="My logo"> 
+            <span>Aarya Ashok K</span>
         </div>
         <div class="ham-menu">
             <div class="ham-icon" onclick="toggleMenu()">
@@ -36,15 +34,16 @@
                 <span></span>
                 <span></span>
             </div>
-            <div class="ham-links">
+
+            <ul class="ham-links">
                 <li><a href="#about" onclick="toggleMenu()">About</a></li>
                 <li><a href="#exp" onclick="toggleMenu()">Experience</a></li>
                 <li><a href="#proj" onclick="toggleMenu()">Projects</a></li>
                 <li><a href="#cont" onclick="toggleMenu()">Contact</a></li>
-            </div>
-        </div>
-    </nav>
-    <section id="hero">
+            </ul>
+        </nav>
+    <div id="scroll-container">
+        <section id="hero">
         <div class="section_pic-container">
             <img src="./images/profile-pic.png" alt="AAK profile pic">
         </div>
@@ -52,14 +51,14 @@
             <p class="section_text_p1">Hello I'm</p>
             <h1 class="title">Aarya Ashok K</h1>
             <p class="section_text_p2">
-                Student Intern
+                DevOps Engineer
             </p>
             <div class="btn-container">
                 <button class="btn btn-color-2" onclick="window.open('./assets/Resume_24.pdf')">Download CV</button>
                 <button class="btn btn-color-1" onclick="location.href='./#cont'">Contact Info</button>
             </div>
             <div id="socials-container">
-                <img src="./images/linkedin.png" alt="LinkedIn Logo" class="icon" onclick="location.href='https://www.linkedin.com/in/aarya-ashok-k-9180072567'">
+                <img src="./images/linkedin.png" alt="LinkedIn Logo" class="icon" onclick="location.href='https://www.linkedin.com/in/aarya-ashok-k-918007256/'">
                 <img src="./images/github.png" alt="Github Logo" class="icon" onclick="location.href='https://www.github.com/AaryaAshok77'">
             </div>
         </div>
@@ -75,15 +74,15 @@
             <div class="about-details-container">
                 <div class="about-container">
                     <div class="details-container">
-                        <img src="images/medal.png" alt="experience icon" class="icon">
+                        <img src="images/experience.svg" alt="experience icon" class="icon">
                         <h3>Experience</h3>
                         <p> 
+                            Intern at <span>Toyota</span> as DevOps Engineer.<br>
                             Intern at <span>Langoor</span> as Full Stack Developer.<br>
-                            Freelance Web Dev at <span>IT Futurista.</span>
                         </p>
                     </div>
                     <div class="details-container">
-                        <img src="images/education.png" alt="education icon" class="icon">
+                        <img src="images/education.svg" alt="education icon" class="icon">
                         <h3>Education</h3>
                         <h4>VIT, Vellore (2021-26)</h4>
                         <p>Integrated M.Tech in Computer Science and Engineering.</p>
@@ -91,16 +90,12 @@
                 </div>
                 <div class="text-container">
                     <p>
-                        I am a student at VIT Vellore pursuing a degree in Integrated MTech in Computer Science and Engineering, adept in Python, Java, and 
-                        C++. Proven leadership in managing impactful projects, such as spearheading the development of the Hotel Management System
-                        and Voice Recognition Library Management System. With a stellar CGPA of 8.92, I blend academic excellence with
-                        practical expertise in web development, utilizing AWS and Python (Django). Notably, I delivered a Kanban Task
-                        Management System within a month, reflecting my commitment to continuous learning. 
+                        DevOps Engineer skilled in cloud technologies, automation frameworks, and CI/CD pipelines. Proficient in Python, Java, AWS, Docker, and Apache Kafka, with a strong foundation in Agile methodologies and system design. Experienced in optimizing deployments, enhancing performance, and delivering measurable results.
                     </p>
                 </div>
             </div>
         </div>
-        <img src="images/arrow.gif" alt="arrow icon" class="icon arrow" onclick="location.href='./#exp'">
+        
     </section>
 
     <section id="exp">
@@ -121,36 +116,10 @@
                         <article>
                             <img src="images/tick.png" alt="tick icon" class="icon">
                             <div>
-                                <h3>C++</h3>
+                                <h3>Java</h3>
                                 <p>Experienced</p>
                             </div>
                         </article>
-                        <article>
-                            <img src="images/tick.png" alt="tick icon" class="icon">
-                            <div>
-                                <h3>Java</h3>
-                                <p>Intermediate</p>
-                            </div>
-                        </article>
-                        <article>
-                            <img src="images/tick.png" alt="tick icon" class="icon">
-                            <div>
-                                <h3>JavaScript</h3>
-                                <p>Intermediate</p>
-                            </div>
-                        </article>
-                        <article>
-                            <img src="images/tick.png" alt="tick icon" class="icon">
-                            <div>
-                                <h3>Assembly</h3>
-                                <p>Beginner</p>
-                            </div>
-                        </article>
-                    </div>
-                </div>
-                <div class="details-container">
-                    <h2 class="exp-subtitle">Web Development</h2>
-                    <div class="article-container">
                         <article>
                             <img src="images/tick.png" alt="tick icon" class="icon">
                             <div>
@@ -165,64 +134,81 @@
                                 <p>Experienced</p>
                             </div>
                         </article>
+                    </div>
+                </div>
+                <div class="details-container">
+                    <h2 class="exp-subtitle">Cloud & DevOps</h2>
+                    <div class="article-container">
                         <article>
                             <img src="images/tick.png" alt="tick icon" class="icon">
                             <div>
-                                <h3>Django</h3>
+                                <h3>AWS / Azure</h3>
                                 <p>Intermediate</p>
                             </div>
                         </article>
                         <article>
                             <img src="images/tick.png" alt="tick icon" class="icon">
                             <div>
-                                <h3>JavaScript</h3>
-                                <p>Intermediate</p>
+                                <h3>Docker</h3>
+                                <p>Experienced</p>
                             </div>
                         </article>
                         <article>
                             <img src="images/tick.png" alt="tick icon" class="icon">
                             <div>
-                                <h3>Github</h3>
-                                <p>Intermediate</p>
+                                <h3>GitHub Actions</h3>
+                                <p>Experienced</p>
                             </div>
                         </article>
                         <article>
                             <img src="images/tick.png" alt="tick icon" class="icon">
                             <div>
-                                <h3>AWS</h3>
-                                <p>Intermediate</p>
-                            </div>
-                        </article>
-                        <article>
-                            <img src="images/tick.png" alt="tick icon" class="icon">
-                            <div>
-                                <h3>Azure</h3>
-                                <p>Intermediate</p>
+                                <h3>CI/CD</h3>
+                                <p>Experienced</p>
                             </div>
                         </article>
                     </div>
                 </div>
                 <div class="details-container">
-                    <h2 class="exp-subtitle">Deep Learning</h2>
+                    <h2 class="exp-subtitle">Frameworks & Libraries</h2>
                     <div class="article-container">
                         <article>
                             <img src="images/tick.png" alt="tick icon" class="icon">
                             <div>
+                                <h3>Django</h3>
+                                <p>Experienced</p>
+                            </div>
+                        </article>
+                        <article>
+                            <img src="images/tick.png" alt="tick icon" class="icon">
+                            <div>
+                                <h3>AngularJS</h3>
+                                <p>Intermediate</p>
+                            </div>
+                        </article>
+                        <article>
+                            <img src="images/tick.png" alt="tick icon" class="icon">
+                            <div>
+                                <h3>NestJS</h3>
+                                <p>Intermediate</p>
+                            </div>
+                        </article>
+                        <article>
+                            <img src="images/tick.png" alt="tick icon" class="icon">
+                            <div>
                                 <h3>PyTorch</h3>
-                                <p>Intermediate</p>
+                                <p>Experienced</p>
                             </div>
                         </article>
+                    </div>
+                </div>
+                <div class="details-container">
+                    <h2 class="exp-subtitle">Machine Learning</h2>
+                    <div class="article-container">
                         <article>
                             <img src="images/tick.png" alt="tick icon" class="icon">
                             <div>
-                                <h3>Matplotlib</h3>
-                                <p>Intermediate</p>
-                            </div>
-                        </article>
-                        <article>
-                            <img src="images/tick.png" alt="tick icon" class="icon">
-                            <div>
-                                <h3>Numpy</h3>
+                                <h3>HuggingFace</h3>
                                 <p>Intermediate</p>
                             </div>
                         </article>
@@ -230,20 +216,27 @@
                             <img src="images/tick.png" alt="tick icon" class="icon">
                             <div>
                                 <h3>Scikit-learn</h3>
-                                <p>Beginner</p>
+                                <p>Intermediate</p>
                             </div>
                         </article>
                         <article>
                             <img src="images/tick.png" alt="tick icon" class="icon">
                             <div>
-                                <h3>Seaborn</h3>
-                                <p>Beginner</p>
+                                <h3>Deep Learning</h3>
+                                <p>Experienced</p>
+                            </div>
+                        </article>
+                        <article>
+                            <img src="images/tick.png" alt="tick icon" class="icon">
+                            <div>
+                                <h3>Neural Networks</h3>
+                                <p>Experienced</p>
                             </div>
                         </article>
                 </div>
             </div>
         </div>
-        <img src="images/arrow.gif" alt="arrow icon" class="icon arrow" onclick="location.href='./#proj'">
+        
     </section>
 
     <section id="proj">
@@ -262,7 +255,12 @@
                             <button class="btn btn-color-2 proj-btn">
                                 Github
                             </button>
-                        </a>                       
+                        </a>
+                        <a href="./assets/LangoorCretificate.pdf" target="_blank">
+                            <button class="btn btn-color-2 proj-btn">
+                                Certificate
+                            </button>
+                        </a>
                     </div>
                 </div>
                 <div class="details-container color-container">
@@ -307,9 +305,42 @@
                         </a> 
                     </div>
                 </div>
+                <div class="details-container color-container">
+                    <div class="article-container">
+                        <img src="images/logo_Toyota.png" alt="Project" class="proj-img">
+                    </div>
+                    <h4>Intern at Toyota</h4>
+                    <h2 class="exp-subtitle proj-title">Bulk Notification System</h2>
+                    <div class="btn-container">
+                        <a href="https://github.com/AaryaAshok77" target="_blank">
+                            <button class="btn btn-color-2 proj-btn">
+                                Github
+                            </button>
+                        </a>
+                        <a href="./assets/ToyotaCertificate.pdf" target="_blank">
+                            <button class="btn btn-color-2 proj-btn">
+                                Certificate
+                            </button>
+                        </a>
+                    </div>
+                </div>
+                <div class="details-container color-container">
+                    <div class="article-container">
+                        <img src="images/logo_Epilepsy.jpeg" alt="Project" class="proj-img">
+                    </div>
+                    <h4>Research Project</h4>
+                    <h2 class="exp-subtitle proj-title">Epilepsy Detection</h2>
+                    <div class="btn-container">
+                        <a href="https://github.com/AaryaAshok77/Epilepsy_Detector.git" target="_blank">
+                            <button class="btn btn-color-2 proj-btn">
+                                Github
+                            </button>
+                        </a> 
+                    </div>
+                </div>
             </div>
         </div>
-        <img src="images/arrow.gif" alt="arrow icon" class="icon arrow" onclick="location.href='./#cont'">
+        
     </section>
     
     <section id="cont">
@@ -330,21 +361,7 @@
             </div>
         </div>
     </section>
-    <footer>
-        <nav>
-            <div class="nav-links-container">
-                <ul class="nav-links">
-                    <li><a href="#about">About</a></li>
-                    <li><a href="#exp">Experience</a></li>
-                    <li><a href="#proj">Projects</a></li>
-                    <li><a href="#cont">Contact</a></li>
-                </ul>
-            </div>
-        </nav>
-        <p>
-            Copyright &#169; 2023 Aarya Ashok K. All Rights Reserved.
-        </p>
-    </footer>
+    </div>
     <script src="script.js"></script>
 </body>
 </html>

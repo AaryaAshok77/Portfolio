@@ -4,15 +4,20 @@
 * {
     margin: 0;
     padding: 0;
-    background-color: #F5F7F8;
-}
-
-body {
-    font-family: 'Poppins', sans-serif;
 }
 
 html {
     scroll-behavior: smooth;
+    scroll-padding-top: 17vh;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: #F5F7F8;
+}
+
+nav {
+    background-color: #F5F7F8;
 }
 
 p {
@@ -28,27 +33,52 @@ a,
 /* Navigation */
 .logo {
     font-size: 2rem;
+    display: flex;
+    align-items: center;
+    z-index: 1001; /* Ensure logo is above nav background */
+}
+
+.logo img {
+    height: 5vh;
+    margin-right: 10px;
+    object-fit: contain;
 }
 
 .logo:hover {
     cursor: default;
 }
 
-nav,
-.nav-links {
+#desk-nav {
     display: flex;
-}
-
-nav {
-    justify-content: space-around;
+    justify-content: space-between;
     align-items: center;
-    height: 17vh;
+    height: 15vh;
+    position: fixed;
+    top: 0;
+    width: 95%;
+    z-index: 1000;
+    background-color: #F5F7F8;
+    padding: 0 2rem;
 }
 
-.nav-links {
+#desk-nav .nav-links {
+    display: flex;
     gap: 2rem;
     list-style: none;
     font-size: 1.5rem;
+}
+
+#ham-nav {
+    display: none; /* Hidden by default for desktop */
+    justify-content: space-between;
+    align-items: center;
+    height: 17vh;
+    position: fixed;
+    top: 0;
+    width: 90%;
+    z-index: 1000;
+    background-color: #F5F7F8;
+    padding: 0 5%;
 }
 
 a {
@@ -65,14 +95,28 @@ a:hover {
     transition: all 0.5s ease-in-out;
 }
 
-/* Hamburger Nav */
-#ham-nav {
-    display: none;
+nav img {
+    background-color: transparent;
+}
+
+#ham-nav .logo {
+    font-size: 2rem;
+    display: flex;
+    align-items: center;
+    z-index: 1001;
+}
+
+#ham-nav .logo img {
+    height: 5vh;
+    margin-right: 10px;
+    object-fit: contain;
 }
 
 .ham-menu {
     position: relative;
-    display: inline-block;
+    display: flex; /* Changed to flex */
+    align-items: center; /* Center items vertically */
+    z-index: 1002; /* Ensure ham-menu is above nav background */
 }
 
 .ham-icon {
@@ -82,6 +126,7 @@ a:hover {
     height: 24px;
     width: 30px;
     cursor: pointer;
+    z-index: 1003; /* Ensure icon is above menu */
 }
 
 .ham-icon span {
@@ -89,6 +134,18 @@ a:hover {
     height: 2px;
     background-color: #45474B;
     transition: all 0.3s ease-in-out;
+}
+
+.ham-icon.open span:first-child {
+    transform: rotate(-45deg) translate(-5px, 6px);
+}
+
+.ham-icon.open span:nth-child(2) {
+    opacity: 0;
+}
+
+.ham-icon.open span:last-child {
+    transform: rotate(45deg) translate(-5px, -6px);
 }
 
 .ham-links {
@@ -99,6 +156,12 @@ a:hover {
     max-height: 0;
     overflow: hidden;
     transition: all 0.3s ease-in-out;
+    z-index: 1004; /* Ensure ham-links are on top when open */
+    display: flex;
+    flex-direction: column;
+    background-color: #F5F7F8;
+    border-radius: 0.5rem;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
 }
 
 .ham-links a {
@@ -115,41 +178,17 @@ a:hover {
 }
 
 .ham-links.open {
-    max-height: 300px;
-}
-
-.ham-icon.open span:first-child {
-    transform: rotate(45deg) translate(10px, 5px);
-}
-
-.ham-icon.open span:nth-child(2) {
-    opacity: 0;
-}
-
-.ham-icon.open span:last-child {
-    transform: rotate(-45deg) translate(10px, -5px);
-}
-
-.ham-icon span:first-child {
-    transform: none;
-}
-
-.ham-icon span:nth-child(2) {
-    opacity: 1;
-}
-
-.ham-icon span:last-child {
-    transform: none;
+    max-height: 300px; /* Sufficient height to show all links */
+    padding: 10px 0; /* Add padding when open */
+    border: 1px solid #ccc; /* Add a border */
 }
 
 
 /* Section */
 section {
-    padding-top: 4vh;
-    height: 96vh;
-    margin: 0 10rem;
+    min-height: 100vh;
     box-sizing: border-box;
-    min-height: fit-content;
+    scroll-snap-align: start;
 }
 
 
@@ -158,7 +197,8 @@ section {
     display: flex;
     justify-content: center;
     gap: 5rem;
-    height: 80vh;
+    padding: 12rem;
+    height: 100vh;
 }
 
 .section_pic-container {
@@ -249,10 +289,11 @@ section {
 /* About Section */
 #about {
     position: relative;
+    padding: 5rem;
 }
 
 .about-container {
-    gap: 2rem;
+    gap: 5rem;
     margin-bottom: 2rem;
     margin-top: 2rem;
 }
@@ -303,6 +344,18 @@ section {
 
 #exp {
     position: relative;
+    padding-left: 5rem;
+    padding-right: 5rem;
+}
+
+#proj .about-container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+}
+
+#proj .details-container {
+    max-width: 100%;
 }
 
 .exp-subtitle {
@@ -342,6 +395,8 @@ article .icon {
 /* Projects Section */
 #proj {
     position: relative;
+    padding-left: 5rem;
+    padding-right: 5rem;
 }
 
 .color-container {
@@ -370,7 +425,6 @@ article .icon {
     display: flex;
     justify-content: center;
     flex-direction: column;
-    height: 70vh;
 }
 
 .cont-info-up-container {
@@ -402,10 +456,17 @@ article .icon {
 
 /* Footer */
 footer {
-    height: 25vh;
     margin: 0 1rem;
 }
 
 footer p {
     text-align: center;
+}
+
+footer .nav-links {
+    justify-content: center;
+    gap: 2rem;
+    list-style: none;
+    font-size: 1.5rem;
+    margin-bottom: 2rem;
 }

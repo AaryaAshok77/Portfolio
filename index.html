@@ -1,362 +1,1120 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Aarya Ashok K — DevOps Engineer</title>
+<link rel="icon" type="image/x-icon" href="./images/logo_Me.png">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@400;500&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0a0a0f;
+    --bg2: #111118;
+    --bg3: #1a1a24;
+    --fg: #f0ede8;
+    --fg2: #a8a49e;
+    --fg3: #6b6760;
+    --accent: #f4ce14;
+    --accent2: #495E57;
+    --accent3: #7ee8a2;
+    --border: rgba(240,237,232,0.08);
+    --border2: rgba(240,237,232,0.15);
+    --serif: 'DM Serif Display', Georgia, serif;
+    --sans: 'Outfit', sans-serif;
+    --mono: 'DM Mono', monospace;
+    --radius: 1rem;
+  }
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; scroll-padding-top: 80px; }
+  body {
+    font-family: var(--sans);
+    background: var(--bg);
+    color: var(--fg);
+    overflow-x: hidden;
+    line-height: 1.6;
+  }
+  ::selection { background: var(--accent); color: #000; }
 
-    <title>Aarya's Portfolio</title>
-    <link rel="icon" type="image/x-icon" href="./images/logo_Me.png">
+  /* ── Noise overlay ── */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 0;
+    opacity: 0.4;
+  }
 
-    <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="media.css">
+  /* ── Nav ── */
+  nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 100;
+    padding: 0 2rem;
+    height: 64px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: rgba(10,10,15,0.8);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+  }
+  .nav-logo {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    font-family: var(--mono);
+    font-size: 0.85rem;
+    color: var(--fg2);
+    text-decoration: none;
+  }
+  .nav-logo img { height: 28px; border-radius: 50%; }
+  .nav-logo .dot { color: var(--accent); }
+  .nav-links-desk {
+    display: flex;
+    gap: 0.25rem;
+    list-style: none;
+  }
+  .nav-links-desk a {
+    font-size: 0.8rem;
+    font-family: var(--mono);
+    color: var(--fg3);
+    text-decoration: none;
+    padding: 0.4rem 0.75rem;
+    border-radius: 0.4rem;
+    transition: all 0.2s;
+    letter-spacing: 0.04em;
+  }
+  .nav-links-desk a:hover { color: var(--fg); background: var(--border); }
+
+  /* ham */
+  .ham-icon {
+    display: none;
+    flex-direction: column;
+    gap: 5px;
+    cursor: pointer;
+    padding: 8px;
+  }
+  .ham-icon span {
+    display: block;
+    width: 22px;
+    height: 1.5px;
+    background: var(--fg2);
+    transition: all 0.25s;
+  }
+  .ham-icon.open span:nth-child(1) { transform: rotate(45deg) translate(4.5px, 4.5px); }
+  .ham-icon.open span:nth-child(2) { opacity: 0; }
+  .ham-icon.open span:nth-child(3) { transform: rotate(-45deg) translate(4.5px, -4.5px); }
+  .ham-menu {
+    position: fixed;
+    inset: 64px 0 0 0;
+    background: rgba(10,10,15,0.97);
+    backdrop-filter: blur(16px);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 2rem;
+    transform: translateX(100%);
+    transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+    z-index: 99;
+  }
+  .ham-menu.open { transform: translateX(0); }
+  .ham-menu a {
+    font-family: var(--serif);
+    font-size: 2.5rem;
+    color: var(--fg);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+  .ham-menu a:hover { color: var(--accent); }
+
+  /* ── Sections ── */
+  section { position: relative; z-index: 1; }
+
+  /* ── Hero ── */
+  #hero {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 100px 2rem 4rem;
+    text-align: center;
+    overflow: hidden;
+  }
+  .hero-glow {
+    position: absolute;
+    width: 600px;
+    height: 600px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(244,206,20,0.06) 0%, transparent 70%);
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+  }
+  .hero-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-family: var(--mono);
+    font-size: 0.75rem;
+    color: var(--accent);
+    border: 1px solid rgba(244,206,20,0.3);
+    padding: 0.35rem 0.9rem;
+    border-radius: 99px;
+    margin-bottom: 2rem;
+    letter-spacing: 0.08em;
+    animation: fadeUp 0.6s ease both;
+  }
+  .hero-tag .pulse {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--accent);
+    animation: pulse 2s ease infinite;
+  }
+  @keyframes pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.4; transform: scale(0.8); }
+  }
+  .hero-pic {
+    width: 140px;
+    height: 140px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid var(--border2);
+    margin-bottom: 2rem;
+    animation: fadeUp 0.6s 0.1s ease both;
+    box-shadow: 0 0 0 8px rgba(244,206,20,0.06);
+  }
+  .hero-name {
+    font-family: var(--serif);
+    font-size: clamp(3rem, 8vw, 5.5rem);
+    line-height: 1.05;
+    color: var(--fg);
+    margin-bottom: 1rem;
+    animation: fadeUp 0.6s 0.2s ease both;
+  }
+  .hero-role {
+    font-family: var(--mono);
+    font-size: 1rem;
+    color: var(--fg3);
+    margin-bottom: 2.5rem;
+    animation: fadeUp 0.6s 0.3s ease both;
+    letter-spacing: 0.06em;
+  }
+  .hero-role span { color: var(--accent2); }
+  .hero-desc {
+    max-width: 540px;
+    font-size: 1rem;
+    color: var(--fg2);
+    line-height: 1.8;
+    margin: 0 auto 2.5rem;
+    animation: fadeUp 0.6s 0.35s ease both;
+  }
+  .hero-btns {
+    display: flex;
+    gap: 0.75rem;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-bottom: 2.5rem;
+    animation: fadeUp 0.6s 0.4s ease both;
+  }
+  .btn {
+    font-family: var(--sans);
+    font-size: 0.85rem;
+    font-weight: 500;
+    padding: 0.65rem 1.4rem;
+    border-radius: 0.5rem;
+    border: none;
+    cursor: pointer;
+    transition: all 0.2s;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    letter-spacing: 0.02em;
+  }
+  .btn-primary {
+    background: var(--accent);
+    color: #000;
+  }
+  .btn-primary:hover { background: #ffd93d; transform: translateY(-1px); }
+  .btn-ghost {
+    background: transparent;
+    color: var(--fg);
+    border: 1px solid var(--border2);
+  }
+  .btn-ghost:hover { background: var(--border); border-color: var(--border2); transform: translateY(-1px); }
+  .hero-socials {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    animation: fadeUp 0.6s 0.45s ease both;
+  }
+  .social-link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 38px;
+    height: 38px;
+    border-radius: 0.5rem;
+    border: 1px solid var(--border);
+    color: var(--fg3);
+    transition: all 0.2s;
+    cursor: pointer;
+    text-decoration: none;
+  }
+  .social-link:hover { border-color: var(--border2); color: var(--fg); background: var(--border); }
+  .social-link img { height: 18px; width: 18px; filter: invert(0.7); transition: filter 0.2s; }
+  .social-link:hover img { filter: invert(1); }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ── Scroll indicator ── */
+  .scroll-hint {
+    position: absolute;
+    bottom: 2rem;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    font-family: var(--mono);
+    font-size: 0.65rem;
+    color: var(--fg3);
+    letter-spacing: 0.1em;
+    animation: fadeUp 0.6s 0.8s ease both;
+  }
+  .scroll-line {
+    width: 1px;
+    height: 40px;
+    background: linear-gradient(to bottom, var(--fg3), transparent);
+    animation: scrollLine 2s ease infinite;
+  }
+  @keyframes scrollLine {
+    0% { opacity: 1; transform: scaleY(1); transform-origin: top; }
+    100% { opacity: 0; transform: scaleY(0); transform-origin: top; }
+  }
+
+  /* ── Section headers ── */
+  .section-header {
+    margin-bottom: 3rem;
+  }
+  .section-label {
+    font-family: var(--mono);
+    font-size: 0.72rem;
+    color: var(--accent);
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    margin-bottom: 0.6rem;
+  }
+  .section-title {
+    font-family: var(--serif);
+    font-size: clamp(2rem, 4vw, 3rem);
+    color: var(--fg);
+    line-height: 1.1;
+  }
+
+  /* ── About ── */
+  #about {
+    padding: 7rem 2rem;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: start;
+  }
+  .about-pic-wrap {
+    position: relative;
+  }
+  .about-pic-wrap::before {
+    content: '';
+    position: absolute;
+    inset: -1px;
+    border-radius: calc(var(--radius) + 2px);
+    background: linear-gradient(135deg, rgba(244,206,20,0.2), transparent 60%);
+    z-index: -1;
+  }
+  .about-pic {
+    width: 100%;
+    border-radius: var(--radius);
+    display: block;
+    object-fit: cover;
+    aspect-ratio: 4/5;
+    border: 1px solid var(--border);
+  }
+  .about-cards {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+  }
+  .about-card {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 1.25rem;
+    transition: border-color 0.2s;
+  }
+  .about-card:hover { border-color: var(--border2); }
+  .about-card-icon {
+    width: 36px;
+    height: 36px;
+    border-radius: 0.5rem;
+    background: rgba(244,206,20,0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 0.75rem;
+  }
+  .about-card-icon img { height: 18px; filter: invert(0.85) sepia(1) saturate(5) hue-rotate(5deg); }
+  .about-card h4 { font-size: 0.8rem; font-weight: 600; color: var(--fg); margin-bottom: 0.4rem; }
+  .about-card p { font-size: 0.78rem; color: var(--fg2); line-height: 1.6; }
+  .about-card p span { color: var(--fg); font-weight: 500; }
+  .about-text {
+    font-size: 0.95rem;
+    color: var(--fg2);
+    line-height: 1.9;
+  }
+
+  /* ── Skills ── */
+  #exp {
+    padding: 7rem 2rem;
+    background: var(--bg2);
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+  }
+  .exp-inner { max-width: 1100px; margin: 0 auto; }
+  .skills-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 1.5rem;
+  }
+  .skill-group {
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 1.5rem;
+    transition: border-color 0.2s, transform 0.2s;
+  }
+  .skill-group:hover { border-color: var(--border2); transform: translateY(-2px); }
+  .skill-group-title {
+    font-family: var(--mono);
+    font-size: 0.72rem;
+    color: var(--accent);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: 1.25rem;
+    padding-bottom: 0.75rem;
+    border-bottom: 1px solid var(--border);
+  }
+  .skill-list { display: flex; flex-direction: column; gap: 0.75rem; }
+  .skill-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 0.85rem;
+  }
+  .skill-name { color: var(--fg); font-weight: 500; }
+  .skill-level {
+    font-family: var(--mono);
+    font-size: 0.68rem;
+    color: var(--fg3);
+    letter-spacing: 0.05em;
+  }
+  .skill-bar-wrap {
+    width: 60px;
+    height: 3px;
+    background: var(--border);
+    border-radius: 99px;
+    margin-left: 0.75rem;
+  }
+  .skill-bar {
+    height: 100%;
+    border-radius: 99px;
+    background: var(--accent);
+    opacity: 0.7;
+  }
+
+  /* ── Projects ── */
+  #proj {
+    padding: 7rem 2rem;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+  .proj-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5rem;
+  }
+  .proj-card {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    overflow: hidden;
+    transition: border-color 0.2s, transform 0.2s;
+    display: flex;
+    flex-direction: column;
+  }
+  .proj-card:hover { border-color: var(--border2); transform: translateY(-3px); }
+  .proj-img-wrap {
+    aspect-ratio: 16/9;
+    background: var(--bg3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    border-bottom: 1px solid var(--border);
+  }
+  .proj-img-wrap img {
+    max-height: 100%;
+    max-width: 100%;
+    object-fit: contain;
+    padding: 1rem;
+    transition: transform 0.3s;
+  }
+  .proj-card:hover .proj-img-wrap img { transform: scale(1.04); }
+  .proj-body {
+    padding: 1.25rem;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+  }
+  .proj-meta {
+    font-family: var(--mono);
+    font-size: 0.68rem;
+    color: var(--fg3);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    margin-bottom: 0.4rem;
+  }
+  .proj-title { font-family: var(--serif); font-size: 1.25rem; color: var(--fg); margin-bottom: 0.5rem; }
+  .proj-desc { font-size: 0.82rem; color: var(--fg2); line-height: 1.7; flex: 1; margin-bottom: 1rem; }
+  .proj-actions { display: flex; gap: 0.5rem; flex-wrap: wrap; }
+  .proj-btn {
+    font-family: var(--mono);
+    font-size: 0.72rem;
+    color: var(--fg2);
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    padding: 0.4rem 0.85rem;
+    border-radius: 0.4rem;
+    cursor: pointer;
+    text-decoration: none;
+    transition: all 0.2s;
+    letter-spacing: 0.04em;
+  }
+  .proj-btn:hover { background: var(--border); color: var(--fg); border-color: var(--border2); }
+
+  /* ── Contact ── */
+  #cont {
+    padding: 7rem 2rem;
+    background: var(--bg2);
+    border-top: 1px solid var(--border);
+  }
+  .cont-inner {
+    max-width: 700px;
+    margin: 0 auto;
+    text-align: center;
+  }
+  .cont-subtitle {
+    font-size: 1rem;
+    color: var(--fg2);
+    margin: 1rem 0 3rem;
+    line-height: 1.8;
+  }
+  .cont-cards {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    max-width: 460px;
+    margin: 0 auto;
+  }
+  .cont-card {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 1rem 1.25rem;
+    text-decoration: none;
+    transition: all 0.2s;
+  }
+  .cont-card:hover { border-color: var(--border2); background: var(--bg); transform: translateX(4px); }
+  .cont-icon-wrap {
+    width: 40px;
+    height: 40px;
+    border-radius: 0.6rem;
+    background: var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+  .cont-icon-wrap img { height: 18px; filter: invert(0.7); }
+  .cont-label { font-size: 0.72rem; font-family: var(--mono); color: var(--fg3); margin-bottom: 0.1rem; letter-spacing: 0.05em; }
+  .cont-value { font-size: 0.9rem; color: var(--fg); font-weight: 500; }
+
+  /* ── Footer ── */
+  footer {
+    padding: 2rem;
+    text-align: center;
+    border-top: 1px solid var(--border);
+  }
+  .footer-links {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    list-style: none;
+    margin-bottom: 1rem;
+  }
+  .footer-links a {
+    font-family: var(--mono);
+    font-size: 0.75rem;
+    color: var(--fg3);
+    text-decoration: none;
+    transition: color 0.2s;
+    letter-spacing: 0.05em;
+  }
+  .footer-links a:hover { color: var(--fg); }
+  footer p {
+    font-family: var(--mono);
+    font-size: 0.72rem;
+    color: var(--fg3);
+    letter-spacing: 0.04em;
+  }
+
+  /* ── Divider ── */
+  .divider {
+    width: 40px;
+    height: 2px;
+    background: var(--accent);
+    margin: 1rem 0 2rem;
+    border-radius: 99px;
+  }
+
+  /* ── Responsive ── */
+  @media (max-width: 768px) {
+    .nav-links-desk { display: none; }
+    .ham-icon { display: flex; }
+    .about-grid { grid-template-columns: 1fr; }
+    .about-pic { aspect-ratio: 3/2; }
+    .about-cards { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 480px) {
+    .proj-grid { grid-template-columns: 1fr; }
+  }
+</style>
 </head>
 <body>
-    <nav id="desk-nav">
-        <div class="logo">
-            <img src="./images/logo_Me.png" alt="My logo"> 
-            <span>Aarya Ashok K</span>
-        </div>
-        <ul class="nav-links">
-            <li><a href="#about">About</a></li>
-            <li><a href="#exp">Experience</a></li>
-            <li><a href="#proj">Projects</a></li>
-            <li><a href="#cont">Contact</a></li>
-        </ul>
-    </nav>
-    <nav id="ham-nav">
-        <div class="logo">
-            <img src="./images/logo_Me.png" alt="My logo"> 
-            <span>Aarya Ashok K</span>
-        </div>
-        <div class="ham-menu">
-            <div class="ham-icon" onclick="toggleMenu()">
-                <span></span>
-                <span></span>
-                <span></span>
-            </div>
 
-            <ul class="ham-links">
-                <li><a href="#about" onclick="toggleMenu()">About</a></li>
-                <li><a href="#exp" onclick="toggleMenu()">Experience</a></li>
-                <li><a href="#proj" onclick="toggleMenu()">Projects</a></li>
-                <li><a href="#cont" onclick="toggleMenu()">Contact</a></li>
-            </ul>
-        </nav>
-    <div id="scroll-container">
-        <section id="hero">
-        <div class="section_pic-container">
-            <img src="./images/profile-pic.png" alt="AAK profile pic">
-        </div>
-        <div class="section_text">
-            <p class="section_text_p1">Hello I'm</p>
-            <h1 class="title">Aarya Ashok K</h1>
-            <p class="section_text_p2">
-                DevOps Engineer
-            </p>
-            <div class="btn-container">
-                <button class="btn btn-color-2" onclick="window.open('./assets/Resume_24.pdf')">Download CV</button>
-                <button class="btn btn-color-1" onclick="location.href='./#cont'">Contact Info</button>
-            </div>
-            <div id="socials-container">
-                <img src="./images/linkedin.png" alt="LinkedIn Logo" class="icon" onclick="location.href='https://www.linkedin.com/in/aarya-ashok-k-918007256/'">
-                <img src="./images/github.png" alt="Github Logo" class="icon" onclick="location.href='https://www.github.com/AaryaAshok77'">
-            </div>
-        </div>
-    </section>
+<!-- ── Nav ── -->
+<nav>
+  <a class="nav-logo" href="#">
+    <img src="./images/logo_Me.png" alt="Aarya logo">
+    aarya<span class="dot">.</span>dev
+  </a>
+  <ul class="nav-links-desk">
+    <li><a href="#about">about</a></li>
+    <li><a href="#exp">skills</a></li>
+    <li><a href="#proj">projects</a></li>
+    <li><a href="#certs">certs</a></li>
+    <li><a href="#cont">contact</a></li>
+  </ul>
+  <div class="ham-icon" id="hamIcon" onclick="toggleMenu()">
+    <span></span><span></span><span></span>
+  </div>
+</nav>
 
-    <section id="about">
-        <p class="section_text_p1">Get To Know More</p>
-        <h1 class="title"> About Me</h1>
-        <div class="section-container">
-            <div class="section_pic-container">
-                <img src="images/about.png" alt="About Picture" class="about-pic">
-            </div>
-            <div class="about-details-container">
-                <div class="about-container">
-                    <div class="details-container">
-                        <img src="images/experience.svg" alt="experience icon" class="icon">
-                        <h3>Experience</h3>
-                        <p> 
-                            Intern at <span>Toyota</span> as DevOps Engineer.<br>
-                            Intern at <span>Langoor</span> as Full Stack Developer.<br>
-                        </p>
-                    </div>
-                    <div class="details-container">
-                        <img src="images/education.svg" alt="education icon" class="icon">
-                        <h3>Education</h3>
-                        <h4>VIT, Vellore (2021-26)</h4>
-                        <p>Integrated M.Tech in Computer Science and Engineering.</p>
-                    </div>
-                </div>
-                <div class="text-container">
-                    <p>
-                        DevOps Engineer skilled in cloud technologies, automation frameworks, and CI/CD pipelines. Proficient in Python, Java, AWS, Docker, and Apache Kafka, with a strong foundation in Agile methodologies and system design. Experienced in optimizing deployments, enhancing performance, and delivering measurable results.
-                    </p>
-                </div>
-            </div>
-        </div>
-        
-    </section>
+<div class="ham-menu" id="hamMenu">
+  <a href="#about" onclick="toggleMenu()">About</a>
+  <a href="#exp" onclick="toggleMenu()">Skills</a>
+  <a href="#proj" onclick="toggleMenu()">Projects</a>
+  <a href="#certs" onclick="toggleMenu()">Certs</a>
+  <a href="#cont" onclick="toggleMenu()">Contact</a>
+</div>
 
-    <section id="exp">
-        <p class="section_text_p1">Explore My</p>
-        <h1 class="title">Experience</h1>
-        <div class="experience-details-container">
-            <div class="about-container">
-                <div class="details-container">
-                    <h2 class="exp-subtitle">Programming Languages</h2>
-                    <div class="article-container">
-                        <article>
-                            <img src="images/tick.png" alt="tick icon" class="icon">
-                            <div>
-                                <h3>Python</h3>
-                                <p>Experienced</p>
-                            </div>
-                        </article>
-                        <article>
-                            <img src="images/tick.png" alt="tick icon" class="icon">
-                            <div>
-                                <h3>Java</h3>
-                                <p>Experienced</p>
-                            </div>
-                        </article>
-                        <article>
-                            <img src="images/tick.png" alt="tick icon" class="icon">
-                            <div>
-                                <h3>HTML</h3>
-                                <p>Experienced</p>
-                            </div>
-                        </article>
-                        <article>
-                            <img src="images/tick.png" alt="tick icon" class="icon">
-                            <div>
-                                <h3>CSS</h3>
-                                <p>Experienced</p>
-                            </div>
-                        </article>
-                    </div>
-                </div>
-                <div class="details-container">
-                    <h2 class="exp-subtitle">Cloud & DevOps</h2>
-                    <div class="article-container">
-                        <article>
-                            <img src="images/tick.png" alt="tick icon" class="icon">
-                            <div>
-                                <h3>AWS / Azure</h3>
-                                <p>Intermediate</p>
-                            </div>
-                        </article>
-                        <article>
-                            <img src="images/tick.png" alt="tick icon" class="icon">
-                            <div>
-                                <h3>Docker</h3>
-                                <p>Experienced</p>
-                            </div>
-                        </article>
-                        <article>
-                            <img src="images/tick.png" alt="tick icon" class="icon">
-                            <div>
-                                <h3>GitHub Actions</h3>
-                                <p>Experienced</p>
-                            </div>
-                        </article>
-                        <article>
-                            <img src="images/tick.png" alt="tick icon" class="icon">
-                            <div>
-                                <h3>CI/CD</h3>
-                                <p>Experienced</p>
-                            </div>
-                        </article>
-                    </div>
-                </div>
-                <div class="details-container">
-                    <h2 class="exp-subtitle">Frameworks & Libraries</h2>
-                    <div class="article-container">
-                        <article>
-                            <img src="images/tick.png" alt="tick icon" class="icon">
-                            <div>
-                                <h3>Django</h3>
-                                <p>Experienced</p>
-                            </div>
-                        </article>
-                        <article>
-                            <img src="images/tick.png" alt="tick icon" class="icon">
-                            <div>
-                                <h3>AngularJS</h3>
-                                <p>Intermediate</p>
-                            </div>
-                        </article>
-                        <article>
-                            <img src="images/tick.png" alt="tick icon" class="icon">
-                            <div>
-                                <h3>NestJS</h3>
-                                <p>Intermediate</p>
-                            </div>
-                        </article>
-                        <article>
-                            <img src="images/tick.png" alt="tick icon" class="icon">
-                            <div>
-                                <h3>PyTorch</h3>
-                                <p>Experienced</p>
-                            </div>
-                        </article>
-                    </div>
-                </div>
-                <div class="details-container">
-                    <h2 class="exp-subtitle">Machine Learning</h2>
-                    <div class="article-container">
-                        <article>
-                            <img src="images/tick.png" alt="tick icon" class="icon">
-                            <div>
-                                <h3>HuggingFace</h3>
-                                <p>Intermediate</p>
-                            </div>
-                        </article>
-                        <article>
-                            <img src="images/tick.png" alt="tick icon" class="icon">
-                            <div>
-                                <h3>Scikit-learn</h3>
-                                <p>Intermediate</p>
-                            </div>
-                        </article>
-                        <article>
-                            <img src="images/tick.png" alt="tick icon" class="icon">
-                            <div>
-                                <h3>Deep Learning</h3>
-                                <p>Experienced</p>
-                            </div>
-                        </article>
-                        <article>
-                            <img src="images/tick.png" alt="tick icon" class="icon">
-                            <div>
-                                <h3>Neural Networks</h3>
-                                <p>Experienced</p>
-                            </div>
-                        </article>
-                </div>
-            </div>
-        </div>
-        
-    </section>
+<!-- ── Hero ── -->
+<section id="hero">
+  <div class="hero-glow"></div>
+  <div class="hero-tag">
+    <span class="pulse"></span>
+    Available for opportunities
+  </div>
+  <img src="./images/profile-pic.png" alt="Aarya Ashok K" class="hero-pic">
+  <h1 class="hero-name">Aarya Ashok K</h1>
+  <p class="hero-role">Software Engineer &nbsp;/&nbsp; AI Agents &amp; Platform &nbsp;/&nbsp; <span>Cloud-Native Infrastructure</span></p>
+  <p class="hero-desc">
+    Building AI agents, agentic workflows, and cloud-native infrastructure on AWS. Specialising in LLM orchestration, RAG systems, and CI/CD automation — eliminating manual processes at scale.
+  </p>
+  <div class="hero-btns">
+    <button class="btn btn-primary" onclick="window.open('./assets/Resume_2026.pdf')">Download CV ↗</button>
+    <button class="btn btn-ghost" onclick="location.href='#cont'">Get In Touch</button>
+  </div>
+  <div class="hero-socials">
+    <a class="social-link" href="https://www.linkedin.com/in/aarya-ashok-k-918007256/" target="_blank" title="LinkedIn">
+      <img src="./images/linkedin.png" alt="LinkedIn">
+    </a>
+    <a class="social-link" href="https://www.github.com/AaryaAshok77" target="_blank" title="GitHub">
+      <img src="./images/github.png" alt="GitHub">
+    </a>
+  </div>
+  <div class="scroll-hint">
+    scroll
+    <div class="scroll-line"></div>
+  </div>
+</section>
 
-    <section id="proj">
-        <p class="section_text_p1">Browse My Recent</p>
-        <h1 class="title">Projects</h1>
-        <div class="experience-details-container">
-            <div class="about-container">
-                <div class="details-container color-container">
-                    <div class="article-container">
-                        <img src="images/logo_TaskNet.png" alt="Project" class="proj-img">
-                    </div>
-                    <h4>Intern at Langoor</h4>
-                    <h2 class="exp-subtitle proj-title">TaskNet</h2>
-                    <div class="btn-container">
-                        <a href="https://github.com/AaryaAshok77/Langoor_Tasknet.git" target="_blank">
-                            <button class="btn btn-color-2 proj-btn">
-                                Github
-                            </button>
-                        </a>
-                        <a href="./assets/LangoorCretificate.pdf" target="_blank">
-                            <button class="btn btn-color-2 proj-btn">
-                                Certificate
-                            </button>
-                        </a>
-                    </div>
-                </div>
-                <div class="details-container color-container">
-                    <div class="article-container">
-                        <img src="images/logo_BlockChain.jpeg" alt="Project" class="proj-img">
-                    </div>
-                    <h4>College project</h4>
-                    <h2 class="exp-subtitle proj-title">Car Pooling System</h2>
-                    <div class="btn-container">
-                        <a href="https://github.com/AaryaAshok77/Blockchain_Proj.git" target="_blank">
-                            <button class="btn btn-color-2 proj-btn">
-                                Github
-                            </button>
-                        </a> 
-                    </div>
-                </div>
-                <div class="details-container color-container">
-                    <div class="article-container">
-                        <img src="images/logo_ITF.png" alt="Project" class="proj-img" style="padding-top: 25%; padding-bottom: 25%;">
-                    </div>
-                    <h4>Freelance Developer</h4>
-                    <h2 class="exp-subtitle proj-title">ITFuturista</h2>
-                    <div class="btn-container">
-                        <a href="https://itfuturista.com/" target="_blank">
-                            <button class="btn btn-color-2 proj-btn">
-                                ITF Website
-                            </button>
-                        </a>
-                    </div>
-                </div>
-                <div class="details-container color-container">
-                    <div class="article-container">
-                        <img src="images/logo_Brain.png" alt="Project" class="proj-img">
-                    </div>
-                    <h4>Personal project</h4>
-                    <h2 class="exp-subtitle proj-title">Brain Tumour Detector</h2>
-                    <div class="btn-container">
-                        <a href="https://github.com/AaryaAshok77/BrainTumourDetector_DeepLearning.git" target="_blank">
-                            <button class="btn btn-color-2 proj-btn">
-                                Github
-                            </button>
-                        </a> 
-                    </div>
-                </div>
-                <div class="details-container color-container">
-                    <div class="article-container">
-                        <img src="images/logo_Toyota.png" alt="Project" class="proj-img">
-                    </div>
-                    <h4>Intern at Toyota</h4>
-                    <h2 class="exp-subtitle proj-title">Bulk Notification System</h2>
-                    <div class="btn-container">
-                        <a href="./assets/ToyotaCertificate.pdf" target="_blank">
-                            <button class="btn btn-color-2 proj-btn">
-                                Certificate
-                            </button>
-                        </a>
-                    </div>
-                </div>
-                <div class="details-container color-container">
-                    <div class="article-container">
-                        <img src="images/logo_Epilepsy.jpeg" alt="Project" class="proj-img">
-                    </div>
-                    <h4>Research Project</h4>
-                    <h2 class="exp-subtitle proj-title">Epilepsy Detection</h2>
-                    <div class="btn-container">
-                        <a href="https://github.com/AaryaAshok77/Epilepsy_Detector.git" target="_blank">
-                            <button class="btn btn-color-2 proj-btn">
-                                Github
-                            </button>
-                        </a> 
-                    </div>
-                </div>
-            </div>
-        </div>
-        
-    </section>
-    
-    <section id="cont">
-        <p class="section_text_p1">Get In Touch</p>
-        <h1 class="title">Contact Me</h1>
-        <div class="cont-info-up-container">
-            <div class="cont-info-container">
-                <img src="images/email.png" alt="mail icon" class="icon cont-icon">
-                <p><a href="mailto:aaryaashokk77@gmail.com" target="_blank">aaryaashokk77@gmail.com</a></p>
-            </div>
-            <div class="cont-info-container">
-                <img src="images/linkedin.png" alt="linkedin icon" class="icon cont-icon">
-                <p><a href="https://www.linkedin.com/in/aarya-ashok-k-918007256/" target="_blank">Aarya Ashok K</a></p>
-            </div>
-            <div class="cont-info-container">
-                <img src="images/whatsapp.png" alt="whatsapp icon" class="icon cont-icon">
-                <p><a href="https://wa.me/9972773094?text=I%27m%20interested%20to%20chat" target="_blank">(+91) 9972773094</a></p>
-            </div>
-        </div>
-    </section>
+<!-- ── About ── -->
+<section id="about">
+  <div class="section-header">
+    <p class="section-label">01 — About</p>
+    <h2 class="section-title">Who I Am</h2>
+    <div class="divider"></div>
+  </div>
+  <div class="about-grid">
+    <div class="about-pic-wrap">
+      <img src="./images/about.png" alt="Aarya Ashok K" class="about-pic">
     </div>
-    <script src="script.js"></script>
+    <div>
+      <div class="about-cards">
+        <div class="about-card">
+          <div class="about-card-icon">
+            <img src="images/experience.svg" alt="">
+          </div>
+          <h4>Experience</h4>
+          <p>SWE Intern at <span>Stryker</span><br>DevOps Intern at <span>Toyota</span><br>Full Stack Intern at <span>Langoor</span></p>
+        </div>
+        <div class="about-card">
+          <div class="about-card-icon">
+            <img src="images/education.svg" alt="">
+          </div>
+          <h4>Education</h4>
+          <p><span>VIT Vellore</span> — Integrated M.Tech in Computer Science (2021–26)</p>
+        </div>
+      </div>
+      <p class="about-text">
+        Software Engineer specialising in AI agents, agentic workflows, and cloud-native infrastructure on AWS. I build autonomous, multi-step LLM systems — combining LangChain, OpenAI GPT-4o, and FAISS vector stores to replace human-in-the-loop processes with intelligent, self-driving pipelines.<br><br>
+        Proficient in Python, C/C++, and Go (concepts), with deep experience in CI/CD (GitHub Actions), Docker, FastAPI, and Apache Kafka. Passionate about developer experience, platform reliability, and using AI to automate repetitive engineering workflows at scale.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ── Skills ── -->
+<section id="exp">
+  <div class="exp-inner">
+    <div class="section-header">
+      <p class="section-label">02 — Skills</p>
+      <h2 class="section-title">Tech Stack</h2>
+      <div class="divider"></div>
+    </div>
+    <div class="skills-grid">
+
+      <div class="skill-group">
+        <div class="skill-group-title">Agentic & AI</div>
+        <div class="skill-list">
+          <div class="skill-item">
+            <span class="skill-name">LangChain / RAG</span>
+            <div style="display:flex;align-items:center;gap:0.5rem">
+              <div class="skill-bar-wrap"><div class="skill-bar" style="width:55%"></div></div>
+              <span class="skill-level">Familiar</span>
+            </div>
+          </div>
+          <div class="skill-item">
+            <span class="skill-name">OpenAI GPT-4o</span>
+            <div style="display:flex;align-items:center;gap:0.5rem">
+              <div class="skill-bar-wrap"><div class="skill-bar" style="width:55%"></div></div>
+              <span class="skill-level">Familiar</span>
+            </div>
+          </div>
+          <div class="skill-item">
+            <span class="skill-name">FAISS / Embeddings</span>
+            <div style="display:flex;align-items:center;gap:0.5rem">
+              <div class="skill-bar-wrap"><div class="skill-bar" style="width:55%"></div></div>
+              <span class="skill-level">Familiar</span>
+            </div>
+          </div>
+          <div class="skill-item">
+            <span class="skill-name">Prompt Engineering</span>
+            <div style="display:flex;align-items:center;gap:0.5rem">
+              <div class="skill-bar-wrap"><div class="skill-bar" style="width:85%"></div></div>
+              <span class="skill-level">Experienced</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="skill-group">
+        <div class="skill-group-title">Languages & CI/CD</div>
+        <div class="skill-list">
+          <div class="skill-item">
+            <span class="skill-name">Python</span>
+            <div style="display:flex;align-items:center;gap:0.5rem">
+              <div class="skill-bar-wrap"><div class="skill-bar" style="width:95%"></div></div>
+              <span class="skill-level">Expert</span>
+            </div>
+          </div>
+          <div class="skill-item">
+            <span class="skill-name">C / C++</span>
+            <div style="display:flex;align-items:center;gap:0.5rem">
+              <div class="skill-bar-wrap"><div class="skill-bar" style="width:80%"></div></div>
+              <span class="skill-level">Experienced</span>
+            </div>
+          </div>
+          <div class="skill-item">
+            <span class="skill-name">Go (Concepts)</span>
+            <div style="display:flex;align-items:center;gap:0.5rem">
+              <div class="skill-bar-wrap"><div class="skill-bar" style="width:55%"></div></div>
+              <span class="skill-level">Familiar</span>
+            </div>
+          </div>
+          <div class="skill-item">
+            <span class="skill-name">GitHub Actions</span>
+            <div style="display:flex;align-items:center;gap:0.5rem">
+              <div class="skill-bar-wrap"><div class="skill-bar" style="width:90%"></div></div>
+              <span class="skill-level">Expert</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="skill-group">
+        <div class="skill-group-title">Platform & Cloud</div>
+        <div class="skill-list">
+          <div class="skill-item">
+            <span class="skill-name">AWS (IoT Core)</span>
+            <div style="display:flex;align-items:center;gap:0.5rem">
+              <div class="skill-bar-wrap"><div class="skill-bar" style="width:80%"></div></div>
+              <span class="skill-level">Experienced</span>
+            </div>
+          </div>
+          <div class="skill-item">
+            <span class="skill-name">Docker Compose</span>
+            <div style="display:flex;align-items:center;gap:0.5rem">
+              <div class="skill-bar-wrap"><div class="skill-bar" style="width:90%"></div></div>
+              <span class="skill-level">Expert</span>
+            </div>
+          </div>
+          <div class="skill-item">
+            <span class="skill-name">HAProxy / Edge</span>
+            <div style="display:flex;align-items:center;gap:0.5rem">
+              <div class="skill-bar-wrap"><div class="skill-bar" style="width:75%"></div></div>
+              <span class="skill-level">Intermediate</span>
+            </div>
+          </div>
+          <div class="skill-item">
+            <span class="skill-name">Kubernetes (EKS)</span>
+            <div style="display:flex;align-items:center;gap:0.5rem">
+              <div class="skill-bar-wrap"><div class="skill-bar" style="width:60%"></div></div>
+              <span class="skill-level">Familiar</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="skill-group">
+        <div class="skill-group-title">Architecture & Web</div>
+        <div class="skill-list">
+          <div class="skill-item">
+            <span class="skill-name">FastAPI / Django</span>
+            <div style="display:flex;align-items:center;gap:0.5rem">
+              <div class="skill-bar-wrap"><div class="skill-bar" style="width:90%"></div></div>
+              <span class="skill-level">Expert</span>
+            </div>
+          </div>
+          <div class="skill-item">
+            <span class="skill-name">Apache Kafka</span>
+            <div style="display:flex;align-items:center;gap:0.5rem">
+              <div class="skill-bar-wrap"><div class="skill-bar" style="width:80%"></div></div>
+              <span class="skill-level">Experienced</span>
+            </div>
+          </div>
+          <div class="skill-item">
+            <span class="skill-name">REST APIs</span>
+            <div style="display:flex;align-items:center;gap:0.5rem">
+              <div class="skill-bar-wrap"><div class="skill-bar" style="width:90%"></div></div>
+              <span class="skill-level">Expert</span>
+            </div>
+          </div>
+          <div class="skill-item">
+            <span class="skill-name">SQL / Databases</span>
+            <div style="display:flex;align-items:center;gap:0.5rem">
+              <div class="skill-bar-wrap"><div class="skill-bar" style="width:80%"></div></div>
+              <span class="skill-level">Experienced</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ── Projects ── -->
+<section id="proj">
+  <div class="section-header">
+    <p class="section-label">03 — Projects</p>
+    <h2 class="section-title">Things I've Built</h2>
+    <div class="divider"></div>
+  </div>
+  <div class="proj-grid">
+
+    <div class="proj-card">
+      <div class="proj-img-wrap">
+        <img src="./images/logo_TaskNet.png" alt="TaskNet">
+      </div>
+      <div class="proj-body">
+        <div class="proj-meta">Internship · Langoor</div>
+        <h3 class="proj-title">TaskNet</h3>
+        <p class="proj-desc">A full-stack task management platform built during my internship at Langoor, leveraging NestJS and Angular for a responsive enterprise workflow solution.</p>
+        <div class="proj-actions">
+          <a class="proj-btn" href="https://github.com/AaryaAshok77/Langoor_Tasknet.git" target="_blank">GitHub ↗</a>
+          <a class="proj-btn" href="./assets/LangoorCretificate.pdf" target="_blank">Certificate ↗</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="proj-card">
+      <div class="proj-img-wrap" style="background:#1a1a24;padding:2rem;display:flex;align-items:center;justify-content:center;">
+        <img src="./images/logo_Stryker.png" alt="Stryker">
+      </div>
+      <div class="proj-body">
+        <div class="proj-meta">Internship · Stryker &nbsp;·&nbsp; Jul 2025 – Jun 2026</div>
+        <h3 class="proj-title">AWS IoT Edge Agent (POC)</h3>
+        <p class="proj-desc">Engineered a production C++17/C11 device agent for ARM64 edge hardware using the AWS IoT Device SDK, connecting to AWS IoT Core with a secure OTA pipeline (SHA-256 signature verification) and an HAProxy TCP-passthrough edge relay to decouple on-prem networks from cloud infrastructure. Also built a Django CI/CD platform that cut manual asset tracking by 90% across 50+ engineers.</p>
+        <div class="proj-actions">
+          <span class="proj-btn" style="cursor:default;opacity:0.5">Private Repo</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="proj-card">
+      <div class="proj-img-wrap">
+        <img src="./images/logo_Toyota.png" alt="Bulk Notification System">
+      </div>
+      <div class="proj-body">
+        <div class="proj-meta">Internship · Toyota Kirloskar &nbsp;·&nbsp; Jun – Dec 2024</div>
+        <h3 class="proj-title">Bulk Notification System</h3>
+        <p class="proj-desc">NestJS + Apache Kafka pipeline processing 100k+ daily notifications, cutting delivery latency from 24h to under 1h. Automated regression testing slashed QA cycles by 97% (3 days → 2 hours), and doubled production deployment frequency to 4 releases/month with zero downtime.</p>
+        <div class="proj-actions">
+          <a class="proj-btn" href="./assets/ToyotaCertificate.pdf" target="_blank">Certificate ↗</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="proj-card">
+      <div class="proj-img-wrap">
+        <img src="./images/logo_ITF.png" alt="ITFuturista" style="padding: 1.5rem;">
+      </div>
+      <div class="proj-body">
+        <div class="proj-meta">Freelance</div>
+        <h3 class="proj-title">ITFuturista</h3>
+        <p class="proj-desc">Freelance web development for ITFuturista — a professional IT consulting firm. Delivered a fully responsive, production-ready site.</p>
+        <div class="proj-actions">
+          <a class="proj-btn" href="https://itfuturista.com/" target="_blank">Live Site ↗</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="proj-card">
+      <div class="proj-img-wrap">
+        <img src="./images/logo_Brain.png" alt="Brain Tumour Detector">
+      </div>
+      <div class="proj-body">
+        <div class="proj-meta">Personal Project</div>
+        <h3 class="proj-title">Brain Tumour Detector</h3>
+        <p class="proj-desc">A deep learning model for MRI-based brain tumour classification using PyTorch and CNNs, achieving high accuracy on medical imaging datasets.</p>
+        <div class="proj-actions">
+          <a class="proj-btn" href="https://github.com/AaryaAshok77/BrainTumourDetector_DeepLearning.git" target="_blank">GitHub ↗</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="proj-card">
+      <div class="proj-img-wrap">
+        <img src="./images/logo_BlockChain.jpeg" alt="Car Pooling System">
+      </div>
+      <div class="proj-body">
+        <div class="proj-meta">College Project</div>
+        <h3 class="proj-title">Blockchain Car Pooling</h3>
+        <p class="proj-desc">A decentralised car pooling platform using Ethereum smart contracts, ensuring trustless, transparent ride-sharing with on-chain payment settlement.</p>
+        <div class="proj-actions">
+          <a class="proj-btn" href="https://github.com/AaryaAshok77/Blockchain_Proj.git" target="_blank">GitHub ↗</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="proj-card">
+      <div class="proj-img-wrap">
+        <img src="./images/logo_Epilepsy.jpeg" alt="Epilepsy Detection">
+      </div>
+      <div class="proj-body">
+        <div class="proj-meta">Research Project</div>
+        <h3 class="proj-title">Epilepsy Detection</h3>
+        <p class="proj-desc">EEG signal analysis pipeline using deep learning to detect epileptic seizures, demonstrating applied research in neural signal processing.</p>
+        <div class="proj-actions">
+          <a class="proj-btn" href="https://github.com/AaryaAshok77/Epilepsy_Detector.git" target="_blank">GitHub ↗</a>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ── Certifications ── -->
+<section id="certs" style="padding: 7rem 2rem; max-width: 1100px; margin: 0 auto;">
+  <div class="section-header">
+    <p class="section-label">04 — Credentials</p>
+    <h2 class="section-title">Certifications</h2>
+    <div class="divider"></div>
+  </div>
+  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:1rem;">
+
+    <div class="about-card">
+      <div style="font-family:var(--mono);font-size:0.68rem;color:var(--accent);letter-spacing:0.06em;margin-bottom:0.5rem;">Anthropic · May 2026</div>
+      <h4 style="font-size:0.9rem;margin-bottom:0.3rem;">Claude Code in Action</h4>
+      <p style="font-size:0.78rem;">LLMs, autonomous workflows & AI-accelerated engineering. ID: 87WQQPRP0COA</p>
+    </div>
+
+    <div class="about-card">
+      <div style="font-family:var(--mono);font-size:0.68rem;color:var(--accent);letter-spacing:0.06em;margin-bottom:0.5rem;">IBM · Jun 2025</div>
+      <h4 style="font-size:0.9rem;margin-bottom:0.3rem;">Introduction to DevOps</h4>
+      <p style="font-size:0.78rem;">Cloud-native computing, CI/CD pipelines, and platform operations. ID: DBQO63THLE63</p>
+    </div>
+
+    <div class="about-card">
+      <div style="font-family:var(--mono);font-size:0.68rem;color:var(--accent);letter-spacing:0.06em;margin-bottom:0.5rem;">DeepLearning.AI · Jun 2025</div>
+      <h4 style="font-size:0.9rem;margin-bottom:0.3rem;">AI-Powered System Design</h4>
+      <p style="font-size:0.78rem;">System design methodologies for integrating AI into scalable backends. ID: P8M4HIYWNV30</p>
+    </div>
+
+    <div class="about-card">
+      <div style="font-family:var(--mono);font-size:0.68rem;color:var(--accent);letter-spacing:0.06em;margin-bottom:0.5rem;">AWS Forage · Aug 2024</div>
+      <h4 style="font-size:0.9rem;margin-bottom:0.3rem;">AWS Solutions Architecture</h4>
+      <p style="font-size:0.78rem;">Scalable cloud environments and AWS deployment practices. ID: vHqD5szkjwTuWaKPF</p>
+    </div>
+
+  </div>
+</section>
+
+<!-- ── Contact ── -->
+<section id="cont">
+  <div class="cont-inner">
+    <div class="section-header" style="text-align:center">
+      <p class="section-label">05 — Contact</p>
+      <h2 class="section-title">Let's Talk</h2>
+      <div class="divider" style="margin: 1rem auto 0"></div>
+    </div>
+    <p class="cont-subtitle">
+      Whether it's a job opportunity, freelance project, or just a chat about tech — my inbox is open.
+    </p>
+    <div class="cont-cards">
+      <a class="cont-card" href="mailto:aaryaashokk77@gmail.com" target="_blank">
+        <div class="cont-icon-wrap">
+          <img src="./images/email.png" alt="email">
+        </div>
+        <div>
+          <div class="cont-label">Email</div>
+          <div class="cont-value">aaryaashokk77@gmail.com</div>
+        </div>
+      </a>
+      <a class="cont-card" href="https://www.linkedin.com/in/aarya-ashok-k-918007256/" target="_blank">
+        <div class="cont-icon-wrap">
+          <img src="./images/linkedin.png" alt="LinkedIn">
+        </div>
+        <div>
+          <div class="cont-label">LinkedIn</div>
+          <div class="cont-value">Aarya Ashok K</div>
+        </div>
+      </a>
+      <a class="cont-card" href="https://wa.me/9972773094?text=I%27m%20interested%20to%20chat" target="_blank">
+        <div class="cont-icon-wrap">
+          <img src="./images/whatsapp.png" alt="WhatsApp">
+        </div>
+        <div>
+          <div class="cont-label">WhatsApp</div>
+          <div class="cont-value">(+91) 9972773094</div>
+        </div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ── Footer ── -->
+<footer>
+  <ul class="footer-links">
+    <li><a href="#about">about</a></li>
+    <li><a href="#exp">skills</a></li>
+    <li><a href="#proj">projects</a></li>
+    <li><a href="#certs">certs</a></li>
+    <li><a href="#cont">contact</a></li>
+  </ul>
+  <p>© 2025 Aarya Ashok K &nbsp;·&nbsp; Designed & built with care</p>
+</footer>
+
+<script>
+function toggleMenu() {
+  document.getElementById('hamIcon').classList.toggle('open');
+  document.getElementById('hamMenu').classList.toggle('open');
+}
+
+// Close ham menu on resize
+window.addEventListener('resize', () => {
+  if (window.innerWidth > 768) {
+    document.getElementById('hamIcon').classList.remove('open');
+    document.getElementById('hamMenu').classList.remove('open');
+  }
+});
+
+// Animate skill bars on scroll
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.querySelectorAll('.skill-bar').forEach(bar => {
+        bar.style.transition = 'width 0.8s cubic-bezier(0.4,0,0.2,1)';
+        const w = bar.style.width;
+        bar.style.width = '0';
+        requestAnimationFrame(() => requestAnimationFrame(() => { bar.style.width = w; }));
+      });
+      observer.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.2 });
+
+document.querySelectorAll('.skill-group').forEach(g => observer.observe(g));
+
+// Fade-in sections on scroll
+const fadeObserver = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.style.opacity = '1';
+      e.target.style.transform = 'translateY(0)';
+    }
+  });
+}, { threshold: 0.05 });
+
+document.querySelectorAll('.proj-card, .about-card, .cont-card').forEach(el => {
+  el.style.opacity = '0';
+  el.style.transform = 'translateY(20px)';
+  el.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+  fadeObserver.observe(el);
+});
+</script>
 </body>
 </html>
